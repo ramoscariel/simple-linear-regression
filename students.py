@@ -35,7 +35,15 @@ plt.ylabel('Puntaje')
 plt.show()
 
 # Evaluación
-from sklearn.metrics import mean_squared_error, r2_score
+
+import statsmodels.api as sm
+X_with_const = sm.add_constant(X)
+model_sm = sm.OLS(y, X_with_const).fit()
+print(model_sm.summary()) # P Valor
+
+from sklearn.metrics import root_mean_squared_error, r2_score
 y_pred = model.predict(X_test) # predicciones en base a los datos de prueba
-print("RMSE:", np.sqrt(mean_squared_error(y_test, y_pred)))
+print("RMSE:", root_mean_squared_error(y_test, y_pred))
 print("R² score:", r2_score(y_test, y_pred))
+
+
